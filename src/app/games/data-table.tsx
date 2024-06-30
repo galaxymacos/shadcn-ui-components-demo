@@ -30,6 +30,8 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { DataTablePagination } from "@/components/data-table-pagination";
+import { DataTableViewOptions } from "@/components/data-table-view-options";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -66,8 +68,9 @@ export function DataTable<TData, TValue>({
 
   return (
     <div>
-      {/*filter area*/}
+      {/* above data table */}
       <div className={"flex items-center py-4"}>
+        {/* filter rows by name */}
         <Input
           placeholder={"Filter names..."}
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -76,6 +79,7 @@ export function DataTable<TData, TValue>({
           }
           className={"max-w-sm"}
         />
+        {/* visibility toggle */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild={true}>
             <Button variant={"outline"} className={"ml-auto"}>
@@ -153,27 +157,33 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
 
-      <div className={"flex items-center justify-end space-x-2 py-4"}>
-        <div className={"flex-1 text-sm text-muted-foreground"}>
-          {table.getFilteredSelectedRowModel().rows.length} of{" "}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
-        </div>
-        <Button
-          variant={"outline"}
-          size={"sm"}
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant={"outline"}
-          size={"sm"}
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
+      {/*<div className={"flex items-center justify-end space-x-2 py-4"}>*/}
+      {/*  <div className={"flex-1 text-sm text-muted-foreground"}>*/}
+      {/*    {table.getFilteredSelectedRowModel().rows.length} of{" "}*/}
+      {/*    {table.getFilteredRowModel().rows.length} row(s) selected.*/}
+      {/*  </div>*/}
+      {/*  <Button*/}
+      {/*    variant={"outline"}*/}
+      {/*    size={"sm"}*/}
+      {/*    onClick={() => table.previousPage()}*/}
+      {/*    disabled={!table.getCanPreviousPage()}*/}
+      {/*  >*/}
+      {/*    Previous*/}
+      {/*  </Button>*/}
+      {/*  <Button*/}
+      {/*    variant={"outline"}*/}
+      {/*    size={"sm"}*/}
+      {/*    onClick={() => table.nextPage()}*/}
+      {/*    disabled={!table.getCanNextPage()}*/}
+      {/*  >*/}
+      {/*    Next*/}
+      {/*  </Button>*/}
+      {/*</div>*/}
+      <div className={"mt-5"}>
+        <DataTablePagination table={table} />
+      </div>
+      <div className={"mt-5"}>
+        <DataTableViewOptions table={table} />
       </div>
     </div>
   );

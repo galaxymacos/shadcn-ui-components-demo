@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { DataTableColumnHeader } from "@/components/data-table-column-header";
 
 export type Game = {
   slug: string;
@@ -49,7 +50,9 @@ export const columns: ColumnDef<Game>[] = [
   },
   {
     accessorKey: "platform",
-    header: "Platform",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title={"Platform"} />
+    ),
   },
   {
     accessorKey: "name",
@@ -67,7 +70,7 @@ export const columns: ColumnDef<Game>[] = [
   },
   {
     accessorKey: "year",
-    header: "Year",
+    header: "Year", // the header of this column will be the string "Year"
   },
   {
     accessorKey: "officialPrice",
